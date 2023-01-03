@@ -82,11 +82,25 @@
 // IMPORTS
 //
   import { ref } from 'vue'
+  import { useStoreAuth } from '@/stores/storeAuth'
+
+//
+// STORES
+//
+  const storeAuth = useStoreAuth()
 
 //
 // MENU MOBILE
 //
   const showMobileNav = ref(false)
+
+//
+// LOGOUT
+//
+  const logout = () => {
+    showMobileNav.value = false
+    storeAuth.logoutUser()
+  }
 
 </script>
 

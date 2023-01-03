@@ -18,6 +18,12 @@
   import NavBar from '@/components/Layout/NavBar.vue'
   import { RouterView, useRoute } from 'vue-router'
   import { onMounted } from 'vue'
+  import { useStoreAuth } from '@/stores/storeAuth'
+
+//
+// STORE
+//
+  const storeAuth = useStoreAuth()
 
 //
 // ROUTER

@@ -72,6 +72,12 @@
 //
 
   import { ref, computed, reactive } from 'vue'
+  import { useStoreAuth } from '@/stores/storeAuth'
+
+//
+// STORE
+//
+  const storeAuth = useStoreAuth()
 
 //
 // CONNEXION
@@ -83,14 +89,28 @@
     return register.value ? "Créer un compte" : "Connexion"
   })
 
-//
-// FORMULAIRE DE CONNEXION
-//
-
   const credentials = reactive({
     email: '',
     password: ''
   })
+
+//
+// SUBMIT
+//
+
+  const onSubmit = () => {
+    if (!credentials.email || !credentials.password) {
+      alert('Attention, veuillez rentrer un email valide et un mot de passe')
+    }
+    else {
+      if (register.value) {
+        storeAuth.registerUser(credentials)
+      }
+      else {
+        storeAuth.loginUser(credentials)
+      }
+    }
+  }
 
 </script>
 
