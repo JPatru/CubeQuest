@@ -9,7 +9,7 @@
         </figure>
         <RouterLink
           class="button is-primary is-small is-success m-2 is-centered"
-          :to="`/stage/${stages[0].id}`"
+          :to="`${stages[0].id}`"
         >
           Stage {{ stages[0].id }}
         </RouterLink>
@@ -23,7 +23,7 @@
         </figure>
         <RouterLink
           class="button is-primary is-small is-success m-2 is-centered"
-          :to="`/stage/${stages[1].id}`"
+          :to="`${stages[1].id}`"
         >
           Stage {{ stages[1].id }}
         </RouterLink>  
@@ -37,7 +37,7 @@
         </figure>
         <RouterLink
           class="button is-primary is-small is-success m-2 is-centered"
-          :to="`/stage/${stages[2].id}`"
+          :to="`${stages[2].id}`"
         >
           Stage {{ stages[2].id }}
         </RouterLink>   
@@ -51,7 +51,7 @@
         </figure>
         <RouterLink
           class="button is-primary is-small is-success m-2 is-centered"
-          :to="`/stage/${stages[3].id}`"
+          :to="`${stages[3].id}`"
         >
           Stage {{ stages[3].id }}
         </RouterLink>    

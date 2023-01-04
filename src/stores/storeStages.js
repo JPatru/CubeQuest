@@ -5,19 +5,21 @@ export const useStoreStages = defineStore('storeStages', {
     return {
       stages: [
         {
-          id: 1,
+          id: 'stage1',
           png: [,,,,,,
                 ,,,,,,
-                ,,,,,,]
+                ,,,,,,],
+          questions: [],
+          reponses: []
         },
         {
-          id: 2,
+          id: 'stage2',
         },
         {
-          id: 3,
+          id: 'stage3',
         },
         { 
-          id: 4,
+          id: 'stage4',
         }
       ],
     }
