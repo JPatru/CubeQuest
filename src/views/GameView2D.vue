@@ -1,21 +1,22 @@
 <template>
   <div
-    class="playground"
+    class="playground container card content has-text-centered p-6"
     @mouseout="resetTable"
   >
-    <div v-for="j in 3" :key="j" class="columns is-variable is-2 is-gapless board">
-      <div v-for="i in 7" :key="i" class="column">
+    <h1 class="is-1 has-text-centered is-family-monospace">{{ stages[stageIndex].title }}</h1>
+    <div v-for="i in 7" :key="i" class="columns is-inline-block is-mobile is-centered has-text-centered is-gapless">
+      <div v-for="j in 3" :key="j" class="column ">
         
-        <div class="has-text-centered">
+        <div class="case has-text-centered">
           <figure
-            class="image is-96x96 is-inline-block"
+            class="image is-96x96 is-inline-block m-0"
             @click="play(j-1,i-1)"
             @mouseenter="inFigure(j-1,i-1)"
             @mouseout="outFigure(j-1,i-1)"
           >
-            <img v-if="isOverTable[(i-1+(j-1)*7)] == 0" src="@/assets/images/stage1/testHover.png" >
-            <img v-if="isOverTable[(i-1+(j-1)*7)] == 1" src="@/assets/images/stage1/test.png" >
-            <img v-if="isOverTable[(i-1+(j-1)*7)] == 2" src="@/assets/images/stage1/testYeah.png" >
+            <img v-if="isOverTable[(i-1+(j-1)*7)] == 0" :src="getImageUrl('unrevealed.png')" >
+            <img v-if="isOverTable[(i-1+(j-1)*7)] == 1" :src="getImageUrl('unrevealedHover.png')" >
+            <img v-if="isOverTable[(i-1+(j-1)*7)] == 2" :src="getImageUrl('revealed.png')" >
           </figure>
         </div>
 
@@ -31,13 +32,24 @@
 // IMPORTS
 //
 //
-  import { onMounted, ref, computed } from 'vue'
+  import { useStoreStages } from '@/stores/storeStages'
+  import { storeToRefs } from 'pinia'
+  import { ref, onBeforeMount } from 'vue'
   import { useRoute } from 'vue-router'
+
+//
+// STORES
+//
+  
+  const storeStages = useStoreStages()
 
 //
 // REFS
 //
+  const { stages } = storeToRefs(storeStages)
   const isOverTable = ref([])
+  const stage = ref()
+  const stageIndex = ref()
 
 //
 // ROUTER
@@ -52,11 +64,22 @@
     isOverTable.value[position] = 2
   }
 
+  const getImageUrl = (picName) => {
+      return new URL(`../assets/images/${stage.value}/${picName}`, import.meta.url).href
+  }
+
 //
 // ONMOUNTED
 //
-  onMounted(() => {
+  onBeforeMount(() => {
     resetTable()
+    stage.value = route.params.id
+    for (let i = 0; i < stages.value.length; i++) {
+      if (stage.value === stages.value[i].id) {
+        stageIndex.value = i
+      }   
+    }   
+      console.log(stageIndex.value);
   })
 
 //
@@ -87,12 +110,16 @@ const inFigure = (col, raw) => {
 </script>
 
 <style>
-  .board {
-    margin: auto;
-    width: 720px;
-    height: 80px;
-  }
   .image {
     cursor: pointer;
+  }
+  .playground {
+    padding: 0px;
+    height: 500px;
+    width: 950px;
+  }
+  .case {
+    height: 96px;
+    margin: 5px 3px 5px 3px;
   }
 </style>

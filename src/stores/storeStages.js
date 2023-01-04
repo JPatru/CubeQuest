@@ -6,6 +6,7 @@ export const useStoreStages = defineStore('storeStages', {
       stages: [
         {
           id: 'stage1',
+          title: 'Niveau 1',
           png: [,,,,,,
                 ,,,,,,
                 ,,,,,,],
@@ -14,12 +15,15 @@ export const useStoreStages = defineStore('storeStages', {
         },
         {
           id: 'stage2',
+          title: 'Niveau 2',
         },
         {
           id: 'stage3',
+          title: 'Niveau 3',
         },
         { 
           id: 'stage4',
+          title: 'Niveau 4',
         }
       ],
     }
