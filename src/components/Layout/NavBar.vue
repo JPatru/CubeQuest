@@ -39,7 +39,7 @@
             class="button is-small is-success mt-3 ml-3"
             @click="logout"
           >
-          déconnexion 
+          {{ storeAuth.user.alias }} déconnexion 
           </button>
         </div>
 
@@ -53,13 +53,13 @@
             Stage selection
           </RouterLink>
 
-          <RouterLink
+          <!-- <RouterLink
             class="navbar-item"
             to="/game"
             active-class="is-active"
           >
             Jouer
-          </RouterLink>
+          </RouterLink> -->
 
           <RouterLink
             class="navbar-item"

@@ -18,8 +18,8 @@ const router = createRouter({
       component: LevelSelectionView
     },
     {
-      path: '/game',
-      name: 'game',
+      path: '/stage/:id',
+      name: 'stage',
       component: GameView
     },
     {
