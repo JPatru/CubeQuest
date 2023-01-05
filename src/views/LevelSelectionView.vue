@@ -13,6 +13,8 @@
         >
           {{ stages[0].title }}
         </RouterLink>
+        <p>Priorités de calcul</p>
+        <p>diff 1</p>
       </div>
     </div>
 

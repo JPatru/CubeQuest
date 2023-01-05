@@ -21,7 +21,29 @@
         </div>
 
       </div>
-    </div>  
+    </div>
+
+    <div v-if="playCard" class="question card">
+      <header class="card-header">
+        <p class="card-header-title has-text-centered">
+          Question :
+        </p>
+      </header>
+      <div class="card-content">
+        <div class="content">
+          <math-jax v-if="stages[stageIndex].type[questionCall] === 'e'" :latex="`${ stages[stageIndex].questions[randomQuestions[questionCall]] }`" />
+        </div>
+      </div>
+      <footer class="card-footer">
+        <math-jax @click="clickAnswer(0)" class="reponse card-footer-item" :latex="`${ randomAnswers[0] }`" />
+        <math-jax @click="clickAnswer(1)" class="reponse card-footer-item" :latex="`${ randomAnswers[1] }`" />
+      </footer>
+    </div>
+
+    <div>
+      
+    </div> 
+    
   </div>
 
     
@@ -34,7 +56,7 @@
 //
   import { useStoreStages } from '@/stores/storeStages'
   import { storeToRefs } from 'pinia'
-  import { ref, onBeforeMount } from 'vue'
+  import { ref, onBeforeMount, computed } from 'vue'
   import { useRoute } from 'vue-router'
 
 //
@@ -50,6 +72,12 @@
   const isOverTable = ref([])
   const stage = ref()
   const stageIndex = ref()
+  const playCard = ref(false)
+  const randomQuestions = ref([])
+  const randomAnswers = ref(null)
+  const questionCall = ref(0)
+  const goodAnswer = ref(null)
+  const colRaw = ref([])
 
 //
 // ROUTER
@@ -59,7 +87,57 @@
 //
 // PLAY
 //
+  const randomizeQuestions = () => {
+    for (let i = 0; i < stages.value[stageIndex.value].questions.length; i++) {
+      let randRank = Math.floor(Math.random()*stages.value[stageIndex.value].questions.length)
+      while (randomQuestions.value.includes(randRank)) { 
+        randRank = Math.floor(Math.random()*stages.value[stageIndex.value].questions.length)
+      }
+      randomQuestions.value.push(randRank)
+    }
+  }
+
+  const randomizeAnswers = () => {
+    goodAnswer.value = Math.floor(Math.random()*2)
+    if (goodAnswer.value === 0) {
+      randomAnswers.value = [
+        stages.value[stageIndex.value].vrai[randomQuestions.value[questionCall.value]],
+        stages.value[stageIndex.value].faux[randomQuestions.value[questionCall.value]]
+      ]
+    } else {      
+      randomAnswers.value = [
+        stages.value[stageIndex.value].faux[randomQuestions.value[questionCall.value]],
+        stages.value[stageIndex.value].vrai[randomQuestions.value[questionCall.value]]
+      ]
+    }
+  }
+
   const play = (col, raw) => {
+    let position = raw + col*7
+    if (isOverTable.value[position] !== 2) {
+      playCard.value = true
+      colRaw.value[0] = col
+      colRaw.value[1] = raw
+    }
+
+  }
+
+  const clickAnswer = (answer,col,raw) => {
+    playCard.value = false
+    if (answer === goodAnswer.value) {
+      win(colRaw.value[0],colRaw.value[1])
+    } else {
+      loose()
+    }
+    questionCall.value++
+    randomizeAnswers()
+  }
+
+  const loose = (col, raw) => {
+    console.log('perdu')
+  }
+
+  const win = (col, raw) => {
     let position = raw + col*7
     isOverTable.value[position] = 2
   }
@@ -79,7 +157,8 @@
         stageIndex.value = i
       }   
     }   
-      console.log(stageIndex.value);
+    randomizeQuestions()
+    randomizeAnswers()
   })
 
 //
@@ -112,6 +191,21 @@ const inFigure = (col, raw) => {
 <style>
   .image {
     cursor: pointer;
+  }
+  /* .image:hover {
+    transform: scale(1.15);
+    z-index: 1;
+  } */
+  .question {
+    position: absolute;
+    width: 550px;
+    top: 180px;
+    left: 200px;
+    font-size: 1.2em;
+  }
+  .reponse {
+    cursor: pointer;
+    font-size: 1.2em;
   }
   .playground {
     padding: 0px;

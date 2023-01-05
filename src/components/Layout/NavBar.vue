@@ -50,7 +50,7 @@
             to="/LevelSelection"
             active-class="is-active"
           >
-            Stage selection
+            Selection de niveau
           </RouterLink>
 
           <!-- <RouterLink
@@ -66,7 +66,7 @@
             to="/player"
             active-class="is-active"
           >
-            Moncompte
+            Mon compte
           </RouterLink>
 
         </div>
