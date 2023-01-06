@@ -31,12 +31,43 @@
       </header>
       <div class="card-content">
         <div class="content">
-          <math-jax v-if="stages[stageIndex].type[questionCall] === 'e'" :latex="`${ stages[stageIndex].questions[randomQuestions[questionCall]] }`" />
+          <div v-for="i in stages[stageIndex].questions[questionCall].length" :key="i">
+
+            <!-- Si question est du texte -->
+            <p
+              v-if="stages[stageIndex].questions[questionCall][i-1][0] === 't'"
+              class="is-size-4"
+            >
+              {{ stages[stageIndex].questions[randomQuestions[questionCall]][i-1][1] }}
+            </p>
+            <!-- Si question est du latex -->
+            <math-jax v-if="stages[stageIndex].questions[questionCall][i-1][0] === 'e'" :latex="`${ stages[stageIndex].questions[randomQuestions[questionCall]][i-1][1] }`" />
+            
+          </div>
+
+
         </div>
       </div>
       <footer class="card-footer">
-        <math-jax @click="clickAnswer(0)" class="reponse card-footer-item" :latex="`${ randomAnswers[0] }`" />
-        <math-jax @click="clickAnswer(1)" class="reponse card-footer-item" :latex="`${ randomAnswers[1] }`" />
+
+        <!-- Si réponse est du texte -->
+        <p
+          v-if="randomAnswers[0][0] === 't'"
+          @click="clickAnswer(0)"
+          class="reponse card-footer-item m-0"
+        >
+          {{ randomAnswers[0][1] }}
+        </p>
+        <p
+          v-if="randomAnswers[1][0] === 't'"
+          @click="clickAnswer(1)"
+          class="reponse card-footer-item m-0"
+        >
+          {{ randomAnswers[1][1] }}
+        </p>
+        <!-- Si réponse est du latex -->
+        <math-jax v-if="randomAnswers[0][0] === 'e'" @click="clickAnswer(0)" class="reponse card-footer-item" :latex="`${ randomAnswers[0][1] }`" />
+        <math-jax v-if="randomAnswers[1][0] === 'e'" @click="clickAnswer(1)" class="reponse card-footer-item" :latex="`${ randomAnswers[1][1] }`" />
       </footer>
     </div>
 
@@ -159,6 +190,11 @@
     }   
     randomizeQuestions()
     randomizeAnswers()
+    for (let i = 0; i < stages.value[stageIndex.value].questions.length; i++) {
+      console.log(stages.value[stageIndex.value].questions[i].length)
+      
+    }
+    
   })
 
 //
