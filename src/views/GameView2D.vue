@@ -2,8 +2,16 @@
   <div
     class="playground container card content has-text-centered p-6"
     @mouseout="resetTable"
-  >
-    <h1 class="is-1 has-text-centered is-family-monospace">{{ stages[stageIndex].title }}</h1>
+  > 
+    <header class="card-header columns">
+      <p class="column is-half">
+        {{ stages[stageIndex].title }}
+      </p>
+      <p class="column is-half">
+        score : {{ score }}
+      </p>
+    </header>
+    
     <div v-for="i in 7" :key="i" class="columns is-inline-block is-mobile is-centered has-text-centered is-gapless">
       <div v-for="j in 3" :key="j" class="column ">
         
@@ -31,17 +39,17 @@
       </header>
       <div class="card-content">
         <div class="content">
-          <div v-for="i in stages[stageIndex].questions[questionCall].length" :key="i">
+          <div v-for="i in question.length" :key="i">
 
             <!-- Si question est du texte -->
             <p
-              v-if="stages[stageIndex].questions[questionCall][i-1][0] === 't'"
+              v-if="question[i-1][0] === 't'"
               class="is-size-4"
             >
-              {{ stages[stageIndex].questions[randomQuestions[questionCall]][i-1][1] }}
+              {{ question[i-1][1] }}
             </p>
             <!-- Si question est du latex -->
-            <math-jax v-if="stages[stageIndex].questions[questionCall][i-1][0] === 'e'" :latex="`${ stages[stageIndex].questions[randomQuestions[questionCall]][i-1][1] }`" />
+            <math-jax v-if="question[i-1][0] === 'e'" :latex="`${ question[i-1][1] }`" />
             
           </div>
 
@@ -72,7 +80,7 @@
     </div>
 
     <div>
-      
+      <progress class="progress is-info" :value="progress" max="100">30%</progress>
     </div> 
     
   </div>
@@ -109,6 +117,9 @@
   const questionCall = ref(0)
   const goodAnswer = ref(null)
   const colRaw = ref([])
+  const score = ref(100)
+  const progress = ref(0)
+  const question = ref([])
 
 //
 // ROUTER
@@ -150,6 +161,11 @@
       colRaw.value[0] = col
       colRaw.value[1] = raw
     }
+    question.value = stages.value[stageIndex.value].questions[randomQuestions.value[questionCall.value]]
+    console.log('stageIndex',stageIndex.value);
+    console.log('randomQuestions',randomQuestions.value);
+    console.log('questionCall',questionCall.value);
+    console.log('question',question.value)
 
   }
 
@@ -165,12 +181,14 @@
   }
 
   const loose = (col, raw) => {
-    console.log('perdu')
+    score.value-=5
   }
 
   const win = (col, raw) => {
     let position = raw + col*7
     isOverTable.value[position] = 2
+    progress.value+=100/21
+    console.log(progress.value);
   }
 
   const getImageUrl = (picName) => {
@@ -190,10 +208,6 @@
     }   
     randomizeQuestions()
     randomizeAnswers()
-    for (let i = 0; i < stages.value[stageIndex.value].questions.length; i++) {
-      console.log(stages.value[stageIndex.value].questions[i].length)
-      
-    }
     
   })
 

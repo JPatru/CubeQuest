@@ -13,8 +13,7 @@
         >
           {{ stages[0].title }}
         </RouterLink>
-        <p>Priorités de calcul</p>
-        <p>diff 1</p>
+        <p>{{ stages[0].type }}</p>
       </div>
     </div>
 
@@ -29,6 +28,7 @@
         >
           {{ stages[1].title }}
         </RouterLink>  
+        <p>{{ stages[1].type }}</p>
       </div>
     </div>
 
