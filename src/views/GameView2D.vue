@@ -24,7 +24,8 @@
           >
             <img v-if="isOverTable[(i-1+(j-1)*7)] == 0" :src="getImageUrl('unrevealed.png')" >
             <img v-if="isOverTable[(i-1+(j-1)*7)] == 1" :src="getImageUrl('unrevealedHover.png')" >
-            <img v-if="isOverTable[(i-1+(j-1)*7)] == 2" :src="getImageUrl('revealed.png')" >
+            <img v-if="isOverTable[(i-1+(j-1)*7)] == 2" :src="getImageUrl(imgFile[(i-1+(j-1)*7)])" 
+            >
           </figure>
         </div>
 
@@ -146,6 +147,7 @@
   const score = ref(100)
   const progress = ref(0)
   const question = ref([])
+  const imgFile = ref([])
 
 //
 // ROUTER
@@ -214,7 +216,6 @@
     let position = raw + col*7
     isOverTable.value[position] = 2
     progress.value+=100/21
-    console.log(progress.value);
   }
 
   const getImageUrl = (picName) => {
@@ -234,6 +235,9 @@
     }   
     randomizeQuestions()
     randomizeAnswers()
+    for (let i = 0; i < 21; i++) {
+      imgFile.value[i] = `${i}`+'.png'      
+    }
     
   })
 
