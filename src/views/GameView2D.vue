@@ -38,44 +38,70 @@
         </p>
       </header>
       <div class="card-content">
-        <div class="content">
-          <div v-for="i in question.length" :key="i">
 
-            <!-- Si question est du texte -->
-            <p
-              v-if="question[i-1][0] === 't'"
-              class="is-size-4"
-            >
-              {{ question[i-1][1] }}
-            </p>
-            <!-- Si question est du latex -->
-            <math-jax v-if="question[i-1][0] === 'e'" :latex="`${ question[i-1][1] }`" />
-            
+        <div v-for="i in question.length" :key="i" class="content m-0 is-inline">
+
+          <!-- Si question est du texte -->
+          <div
+            v-if="question[i-1][0] === 't'"
+            class="is-inline is-size-4"
+          >
+            {{ question[i-1][1] }}
           </div>
+      
+          <!-- Si question est du latex -->
+          <div v-if="question[i-1][0] === 'e'" class="is-inline is-size-4">
+            <math-jax :latex="`${ question[i-1][1] }`" />
+          </div> 
 
-
+          <!-- Si question est un tableau  -->
+          <div v-if="question[i-1][0][0] === ('tabh'||'tabb')">
+            <table class="table is-striped">
+              <thead>                
+                <tr>
+                  <template v-for="j in question[i-1][0].length-1" :key="j">
+                    <th v-if="question[i-1][0][0] === 'tabh'">
+                      <math-jax v-if="question[i-1][0][j][0] === 'e'" :latex="`${ question[i-1][0][j][1] }`" />
+                    </th>
+                  </template>
+                </tr>              
+              </thead>
+              <tbody>                
+                <tr v-for="k in question[i-1].length-1" :key="k">
+                  <template v-for="j in question[i-1][k].length-1" :key="j">
+                    <td v-if="question[i-1][1][0] === 'tabb'">
+                      <math-jax v-if="question[i-1][k][j][0] === 'e'" :latex="`${ question[i-1][k][j][1] }`" />
+                    </td>          
+                  </template>                         
+                </tr>
+              </tbody>
+            </table>
+        
+          </div>
+          
         </div>
+
       </div>
       <footer class="card-footer">
 
         <!-- Si réponse est du texte -->
-        <p
+        <div
           v-if="randomAnswers[0][0] === 't'"
           @click="clickAnswer(0)"
-          class="reponse card-footer-item m-0"
+          class="reponse card-footer-item m-0 is-size-5"
         >
           {{ randomAnswers[0][1] }}
-        </p>
-        <p
+        </div>
+        <div
           v-if="randomAnswers[1][0] === 't'"
           @click="clickAnswer(1)"
-          class="reponse card-footer-item m-0"
+          class="reponse card-footer-item m-0 is-size-5"
         >
           {{ randomAnswers[1][1] }}
-        </p>
+        </div>
         <!-- Si réponse est du latex -->
-        <math-jax v-if="randomAnswers[0][0] === 'e'" @click="clickAnswer(0)" class="reponse card-footer-item" :latex="`${ randomAnswers[0][1] }`" />
-        <math-jax v-if="randomAnswers[1][0] === 'e'" @click="clickAnswer(1)" class="reponse card-footer-item" :latex="`${ randomAnswers[1][1] }`" />
+        <math-jax v-if="randomAnswers[0][0] === 'e'" @click="clickAnswer(0)" class="reponse card-footer-item is-size-4" :latex="`${ randomAnswers[0][1] }`" />
+        <math-jax v-if="randomAnswers[1][0] === 'e'" @click="clickAnswer(1)" class="reponse card-footer-item is-size-4" :latex="`${ randomAnswers[1][1] }`" />
       </footer>
     </div>
 
@@ -255,7 +281,6 @@ const inFigure = (col, raw) => {
   }
   .reponse {
     cursor: pointer;
-    font-size: 1.2em;
   }
   .playground {
     padding: 0px;

@@ -48,22 +48,44 @@ export const useStoreStages = defineStore('storeStages', {
                 ,,,,,,
                 ,,,,,,],
           questions: [
-            [['t','Dans un repère, on a représenté une fonction.'],['t','Les images se lisent :']],
+            [['t','Dans un repère, on a représenté une fonction.'],['t',' Les images se lisent :']],
             [['t','Dans un repère, on a représenté une fonction. Les images se lisent :']],
             [['t','Dans un tableau de valeurs d\'une fonction, les antécédents se lisent :']],
-            [['t','Dans un tableau de valeurs d\'une fonction, les images se lisent :']]
+            [['t','Dans un tableau de valeurs d\'une fonction, les images se lisent :']],
+            [['t','La fonction  '],['e','f'],['t',' est telle que '],['e','f(1)=3']],
+            [['t','La fonction  '],['e','f'],['t',' est telle que '],['e','f(2)=5']],
+            [['t','La fonction '],['e','f'],['t',' est telle que '],['e','f(3)=6']],
+            [['t','La courbe représentative de la fonction '],['e','f'],['t',' passe par le point de coordonnées '],['e','(1;2)']],
+            [['t','L\'image de '],['e','3'],['t',' par la fonction '],['e','f'],['t',' est '],['e','4'],['t','. La courbe représentative de '],['e','f'],['t',' passe par le point de coordonnéees']],
+            [['t','Un antécédent de '],['e','2'],['t',' par la fonction '],['e','f'],['t',' est '],['e','5'],['t','. La courbe représentative de '],['e','f'],['t',' passe par le point de coordonnées']],
+            [['t','Voici le tableau de valeurs d\'une fonction '],['e','f'],[['tabh',['e','x'],['e','-2'],['e','-1'],['e','2'],['e','4']],['tabb',['e','f(x)'],['e','5'],['e','4'],['e','3'],['e','2']]],['t','L\'image de '],['e','4'],['t',' est :']]
           ],
           vrai: [
             ['t','sur l\'axe des ordonnées'],
             ['t','sur l\'axe des ordonnées'],
             ['t','sur la première ligne'],
-            ['t','sur la seconde ligne']
+            ['t','sur la seconde ligne'],
+            ['t','3 est l\'image de 1 par f'],
+            ['t','Le point A (2;5) appartient à C'],
+            ['t','3 est un antécédent de 6.'],
+            ['e','f(1)=2'],
+            ['e','(3;4)'],
+            ['e','(5;2)'],
+            ['e','2']
           ],
           faux: [
             ['t','sur l\'axe des abscisses'],
             ['t','sur la courbe'],
             ['t','sur la seconde ligne'],
-            ['t','sur la première ligne']
+            ['t','sur la première ligne'],
+            ['t','1 est l\'image de 3 par f'],            
+            ['t','Le point A (5;2) appartient à C'],
+            ['t','6 est un antécédent de 3'],
+            ['e','f(2)=1'],
+            ['e','(4;3)'],
+            ['e','(2;5)'],
+            ['e','-1']
+
           ]
         },
         {
