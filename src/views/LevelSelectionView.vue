@@ -6,13 +6,29 @@
       <div class="box has-text-centered">
         <figure class="image is-128x128 is-inline-block">
           <img src="../assets/images/stage1/preview.png">
-        </figure>
+        </figure><br>
+
         <RouterLink
-          class="button is-primary is-small is-success m-2 is-centered"
+          class="button is-primary is-small is-warning m-2 is-centered"
           :to="`${stages[0].id}`"
         >
-          {{ stages[0].title }}
+          Niv. {{ stages[0].subStage }}
         </RouterLink>
+
+        <RouterLink
+          class="button is-primary is-small is-warning m-2 is-centered"
+          :to="`${stages[1].id}`"
+        >
+          Niv. {{ stages[1].subStage }}
+        </RouterLink>
+
+        <RouterLink
+          class="button is-primary is-small is-warning m-2 is-centered"
+          :to="`${stages[2].id}`"
+        >
+          Niv. {{ stages[2].subStage }}
+        </RouterLink>
+
         <p>{{ stages[0].type }}</p>
       </div>
     </div>
@@ -21,14 +37,23 @@
       <div class="box has-text-centered">
         <figure class="image is-128x128 is-inline-block">
           <img src="../assets/images/stage2/preview.png">
-        </figure>
+        </figure><br>
+
         <RouterLink
-          class="button is-primary is-small is-success m-2 is-centered"
-          :to="`${stages[1].id}`"
+          class="button is-primary is-small is-warning m-2 is-centered"
+          :to="`${stages[3].id}`"
         >
-          {{ stages[1].title }}
+          Niv. {{ stages[3].subStage }}
         </RouterLink>  
-        <p>{{ stages[1].type }}</p>
+
+        <RouterLink
+          class="button is-primary is-small is-warning m-2 is-centered"
+          :to="`${stages[4].id}`"
+        >
+          Niv. {{ stages[4].subStage }}
+        </RouterLink>  
+
+        <p>{{ stages[4].type }}</p>
       </div>
     </div>
 
@@ -36,12 +61,12 @@
       <div class="box has-text-centered">
         <figure class="image is-128x128 is-inline-block">
           <img src="../assets/images/stage3/preview.png">
-        </figure>
+        </figure><br>
         <RouterLink
           class="button is-primary is-small is-success m-2 is-centered"
-          :to="`${stages[2].id}`"
+          :to="`${stages[4].id}`"
         >
-          {{ stages[2].title }}
+          Niv. {{ stages[4].subStage }}
         </RouterLink>   
       </div>
     </div>
@@ -50,12 +75,12 @@
       <div class="box has-text-centered">
         <figure class="image is-128x128 is-inline-block">
           <img src="../assets/images/stage4/preview.png">
-        </figure>
+        </figure><br>
         <RouterLink
           class="button is-primary is-small is-success m-2 is-centered"
-          :to="`${stages[3].id}`"
+          :to="`${stages[5].id}`"
         >
-          {{ stages[3].title }}
+          Niv. {{ stages[5].subStage }}
         </RouterLink>    
       </div>
     </div>
@@ -89,3 +114,6 @@
   const id = ref(1)
 
 </script>
+
+<style>
+</style>

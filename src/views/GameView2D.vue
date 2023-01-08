@@ -5,14 +5,14 @@
   > 
     <header class="card-header columns">
       <p class="column is-half">
-        {{ stages[stageIndex].title }}
+        {{ stages[stageIndex].stage }} / Niveau {{ stages[stageIndex].subStage }}
       </p>
       <p class="column is-half">
         score : {{ score }}
       </p>
     </header>
     
-    <div v-for="i in 7" :key="i" class="columns is-inline-block is-mobile is-centered has-text-centered is-gapless">
+    <div v-for="i in 9" :key="i" class="columns is-inline-block is-mobile is-centered has-text-centered is-gapless">
       <div v-for="j in 3" :key="j" class="column ">
         
         <div class="case has-text-centered">
@@ -22,9 +22,9 @@
             @mouseenter="inFigure(j-1,i-1)"
             @mouseout="outFigure(j-1,i-1)"
           >
-            <img v-if="isOverTable[(i-1+(j-1)*7)] == 0" :src="getImageUrl('unrevealed.png')" >
-            <img v-if="isOverTable[(i-1+(j-1)*7)] == 1" :src="getImageUrl('unrevealedHover.png')" >
-            <img v-if="isOverTable[(i-1+(j-1)*7)] == 2" :src="getImageUrl(imgFile[(i-1+(j-1)*7)])" 
+            <img v-if="isOverTable[(i-1+(j-1)*9)] == 0" :src="getImageUrl('unrevealed.png')" >
+            <img v-if="isOverTable[(i-1+(j-1)*9)] == 1" :src="getImageUrl('unrevealedHover.png')" >
+            <img v-if="isOverTable[(i-1+(j-1)*9)] == 2" :src="getImageUrl(imgFile[(i-1+(j-1)*9)])" 
             >
           </figure>
         </div>
@@ -183,7 +183,7 @@
   }
 
   const play = (col, raw) => {
-    let position = raw + col*7
+    let position = raw + col*9
     if (isOverTable.value[position] !== 2) {
       playCard.value = true
       colRaw.value[0] = col
@@ -213,13 +213,13 @@
   }
 
   const win = (col, raw) => {
-    let position = raw + col*7
+    let position = raw + col*9
     isOverTable.value[position] = 2
-    progress.value+=100/21
+    progress.value+=100/27
   }
 
   const getImageUrl = (picName) => {
-      return new URL(`../assets/images/${stage.value}/${picName}`, import.meta.url).href
+      return new URL(`../assets/images/${stages.value[stageIndex.value].stage}/${stages.value[stageIndex.value].subStage}/${picName}`, import.meta.url).href
   }
 
 //
@@ -229,15 +229,18 @@
     resetTable()
     stage.value = route.params.id
     for (let i = 0; i < stages.value.length; i++) {
+        console.log(stage.value,stages.value[i].id)
       if (stage.value === stages.value[i].id) {
         stageIndex.value = i
+        console.log(stage.value)
       }   
     }   
     randomizeQuestions()
     randomizeAnswers()
-    for (let i = 0; i < 21; i++) {
+    for (let i = 0; i < 27; i++) {
       imgFile.value[i] = `${i}`+'.png'      
     }
+    console.log(stages.value[stageIndex.value].questions);
     
   })
 
@@ -245,21 +248,21 @@
 // MOUSEOVER
 //
 const inFigure = (col, raw) => {
-    let position = raw + col*7
+    let position = raw + col*9
     if (isOverTable.value[position] !== 2) {
       isOverTable.value[position] = 1
     }
   }
 
   const outFigure = (col, raw) => {
-    let position = raw + col*7
+    let position = raw + col*9
     if (isOverTable.value[position] !== 2) {
       isOverTable.value[position] = 0
     }
   }
 
   const resetTable = () => {
-    for (let i = 0; i < 21; i++) {
+    for (let i = 0; i < 27; i++) {
       if (isOverTable.value[i] !== 2) {
         isOverTable.value[i] = 0
       }
@@ -289,7 +292,7 @@ const inFigure = (col, raw) => {
   .playground {
     padding: 0px;
     height: 500px;
-    width: 950px;
+    width: 1020px;
   }
   .case {
     height: 96px;
