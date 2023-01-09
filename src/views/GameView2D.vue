@@ -121,6 +121,48 @@
       </footer>
     </div>
 
+
+    <!-- Affichage correction -->
+    <div v-if="showCorrection" class="question card">
+      <header class="card-header">
+        <p class="card-header-title has-text-centered">
+          Correction :
+        </p>
+      </header>
+      <div class="card-content">
+
+        <div v-for="i in correction.length" :key="i" class="content m-0 is-inline">
+
+          <!-- Si question est du texte -->
+          <div
+            v-if="correction[i-1][0] === 't'"
+            class="is-inline is-size-4"
+          >
+            {{ correction[i-1][1] }}
+          </div>
+      
+          <!-- Si question est du latex -->
+          <div v-if="correction[i-1][0] === 'e'" class="is-inline is-size-4">
+            <math-jax :latex="`${ correction[i-1][1] }`" />
+          </div>
+
+          <!-- Si question est une image -->
+          <div v-if="correction[i-1][0] === 'im'" class="">
+            <img :src="getImageQuestion(correction[i-1][1])" >
+          </div> 
+          
+        </div>
+      </div>
+      <footer class="card-footer">
+
+        <div @click="hideCorrection()" class="button is-primary is-small is-danger m-2 is-centered">
+          C'est compris !
+        </div>
+
+        </footer>
+    </div>
+
+
     <div>
       <progress class="progress is-info" :value="progress" max="100">30%</progress>
     </div> 
@@ -156,12 +198,14 @@
   const playCard = ref(false)
   const randomQuestions = ref([])
   const randomAnswers = ref(null)
+  const showCorrection = ref(false)
   const questionCall = ref(0)
   const goodAnswer = ref(null)
   const colRaw = ref([])
   const score = ref(100)
   const progress = ref(0)
   const question = ref([])
+  const correction = ref([])
   const imgFile = ref([])
 
 //
@@ -205,10 +249,10 @@
       colRaw.value[1] = raw
     }
     question.value = stages.value[stageIndex.value].questions[randomQuestions.value[questionCall.value]]
-    console.log('stageIndex',stageIndex.value);
-    console.log('randomQuestions',randomQuestions.value);
-    console.log('questionCall',questionCall.value);
-    console.log('question',question.value)
+    correction.value = stages.value[stageIndex.value].correction[randomQuestions.value[questionCall.value]]
+    console.log(randomQuestions.value[questionCall.value]);
+    console.log(question.value);
+    console.log(correction.value);
 
   }
 
@@ -225,12 +269,17 @@
 
   const loose = (col, raw) => {
     score.value-=5
+    showCorrection.value = true
   }
 
   const win = (col, raw) => {
     let position = raw + col*9
     isOverTable.value[position] = 2
     progress.value+=100/27
+  }
+
+  const hideCorrection = () => {
+    showCorrection.value = false
   }
 
   const getImageUrl = (picName) => {
@@ -248,10 +297,8 @@ const getImageQuestion = (picName) => {
     resetTable()
     stage.value = route.params.id
     for (let i = 0; i < stages.value.length; i++) {
-        console.log(stage.value,stages.value[i].id)
       if (stage.value === stages.value[i].id) {
         stageIndex.value = i
-        console.log(stage.value)
       }   
     }   
     randomizeQuestions()
@@ -259,7 +306,6 @@ const getImageQuestion = (picName) => {
     for (let i = 0; i < 27; i++) {
       imgFile.value[i] = `${i}`+'.png'      
     }
-    console.log(randomAnswers.value);
     
   })
 
