@@ -91,24 +91,33 @@
       </div>
       <footer class="card-footer">
 
-        <!-- Si réponse est du texte -->
-        <div
-          v-if="randomAnswers[0][0] === 't'"
-          @click="clickAnswer(0)"
-          class="reponse card-footer-item m-0 is-size-5"
-        >
-          {{ randomAnswers[0][1] }}
-        </div>
-        <div
-          v-if="randomAnswers[1][0] === 't'"
-          @click="clickAnswer(1)"
-          class="reponse card-footer-item m-0 is-size-5"
-        >
-          {{ randomAnswers[1][1] }}
-        </div>
-        <!-- Si réponse est du latex -->
-        <math-jax v-if="randomAnswers[0][0] === 'e'" @click="clickAnswer(0)" class="reponse card-footer-item is-size-4" :latex="`${ randomAnswers[0][1] }`" />
-        <math-jax v-if="randomAnswers[1][0] === 'e'" @click="clickAnswer(1)" class="reponse card-footer-item is-size-4" :latex="`${ randomAnswers[1][1] }`" />
+          <div @click="clickAnswer(0)" class="reponse card-footer-item m-0 is-size-5 is-inline">
+
+            <div v-for="i in randomAnswers[0].length" :key="i" class="content m-0 is-inline">
+              <!-- Si réponse est du texte -->
+              <div v-if="randomAnswers[0][i-1][0] === 't'" class="is-inline is-size-5">
+                {{ randomAnswers[0][i-1][1] }}
+              </div>
+              <!-- Si réponse est du latex -->
+              <math-jax v-if="randomAnswers[0][i-1][0] === 'e'" :latex="`${ randomAnswers[0][i-1][1] }`" />
+
+            </div> 
+
+          </div>
+
+          <div @click="clickAnswer(1)" class="reponse card-footer-item m-0 is-size-5 is-inline">
+
+            <div v-for="i in randomAnswers[1].length" :key="i" class="content m-0 is-inline">
+              <!-- Si réponse est du texte -->
+              <div v-if="randomAnswers[1][i-1][0] === 't'" class="is-inline is-size-5">
+                {{ randomAnswers[1][i-1][1] }}
+              </div>
+              <!-- Si réponse est du latex -->
+              <math-jax v-if="randomAnswers[1][i-1][0] === 'e'" :latex="`${ randomAnswers[1][i-1][1] }`" />
+
+            </div>
+          </div>
+
       </footer>
     </div>
 
@@ -250,7 +259,7 @@ const getImageQuestion = (picName) => {
     for (let i = 0; i < 27; i++) {
       imgFile.value[i] = `${i}`+'.png'      
     }
-    console.log(stages.value[stageIndex.value].questions);
+    console.log(randomAnswers.value);
     
   })
 

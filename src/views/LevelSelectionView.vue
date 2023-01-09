@@ -63,7 +63,7 @@
           <img src="../assets/images/stage3/preview.png">
         </figure><br>
         <RouterLink
-          class="button is-primary is-small is-success m-2 is-centered"
+          class="button is-primary is-small is-warning m-2 is-centered"
           :to="`${stages[4].id}`"
         >
           Niv. {{ stages[4].subStage }}
@@ -77,7 +77,7 @@
           <img src="../assets/images/stage4/preview.png">
         </figure><br>
         <RouterLink
-          class="button is-primary is-small is-success m-2 is-centered"
+          class="button is-primary is-small is-warning m-2 is-centered"
           :to="`${stages[5].id}`"
         >
           Niv. {{ stages[5].subStage }}
