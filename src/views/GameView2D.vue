@@ -79,6 +79,12 @@
             </table>
         
           </div>
+
+          <!-- Si question est une image -->
+          <div v-if="question[i-1][0] === 'im'" class="">
+            <img :src="getImageQuestion(question[i-1][1])" >
+          </div> 
+
           
         </div>
 
@@ -222,6 +228,10 @@
       return new URL(`../assets/images/${stages.value[stageIndex.value].stage}/${stages.value[stageIndex.value].subStage}/${picName}`, import.meta.url).href
   }
 
+const getImageQuestion = (picName) => {
+    return new URL(`../assets/images/questions/${picName}`, import.meta.url).href
+}
+
 //
 // ONMOUNTED
 //
@@ -283,7 +293,7 @@ const inFigure = (col, raw) => {
     position: absolute;
     width: 550px;
     top: 180px;
-    left: 200px;
+    left: 235px;
     font-size: 1.2em;
   }
   .reponse {
