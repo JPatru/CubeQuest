@@ -89,7 +89,7 @@
         </div>
 
       </div>
-      <footer class="card-footer">
+      <footer v-if="!showCorrection" class="card-footer has-background-info-light">
 
           <div @click="clickAnswer(0)" class="reponse card-footer-item m-0 is-size-5 is-inline">
 
@@ -119,48 +119,49 @@
           </div>
 
       </footer>
-    </div>
-
-
-    <!-- Affichage correction -->
-    <div v-if="showCorrection" class="question card">
-      <header class="card-header">
-        <p class="card-header-title has-text-centered">
-          Correction :
-        </p>
-      </header>
-      <div class="card-content">
-
-        <div v-for="i in correction.length" :key="i" class="content m-0 is-inline">
-
-          <!-- Si question est du texte -->
-          <div
-            v-if="correction[i-1][0] === 't'"
-            class="is-inline is-size-4"
-          >
-            {{ correction[i-1][1] }}
-          </div>
       
-          <!-- Si question est du latex -->
-          <div v-if="correction[i-1][0] === 'e'" class="is-inline is-size-4">
-            <math-jax :latex="`${ correction[i-1][1] }`" />
+      <!-- Affichage correction -->
+      <div v-if="showCorrection">
+        <header class="card-header has-background-primary">
+          <p class="card-header-title has-text-centered">
+            Correction :
+          </p>
+        </header>
+        <div class="card-content has-background-primary">
+
+          <div v-for="i in correction.length" :key="i" class="content m-0 is-inline">
+
+            <!-- Si question est du texte -->
+            <div
+              v-if="correction[i-1][0] === 't'"
+              class="is-inline is-size-4"
+            >
+              {{ correction[i-1][1] }}
+            </div>
+        
+            <!-- Si question est du latex -->
+            <div v-if="correction[i-1][0] === 'e'" class="is-inline is-size-4">
+              <math-jax :latex="`${ correction[i-1][1] }`" />
+            </div>
+
+            <!-- Si question est une image -->
+            <div v-if="correction[i-1][0] === 'im'" class="">
+              <img :src="getImageQuestion(correction[i-1][1])" >
+            </div> 
+            
           </div>
-
-          <!-- Si question est une image -->
-          <div v-if="correction[i-1][0] === 'im'" class="">
-            <img :src="getImageQuestion(correction[i-1][1])" >
-          </div> 
-          
         </div>
-      </div>
-      <footer class="card-footer">
+        <footer class="container has-text-centered has-background-primary">
 
-        <div @click="hideCorrection()" class="button is-primary is-small is-danger m-2 is-centered">
-          C'est compris !
-        </div>
+          <div @click="hideCorrection()" class="button is-small has-background-warning m-2">
+            C'est compris !
+          </div>
 
         </footer>
+      </div>
     </div>
+
+
 
 
     <div>
@@ -257,9 +258,9 @@
   }
 
   const clickAnswer = (answer,col,raw) => {
-    playCard.value = false
     if (answer === goodAnswer.value) {
       win(colRaw.value[0],colRaw.value[1])
+      playCard.value = false
     } else {
       loose()
     }
@@ -280,6 +281,7 @@
 
   const hideCorrection = () => {
     showCorrection.value = false
+    playCard.value = false
   }
 
   const getImageUrl = (picName) => {
