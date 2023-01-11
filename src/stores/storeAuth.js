@@ -27,8 +27,10 @@ export const useStoreAuth = defineStore('storeAuth', {
       })
     },
     registerUser(credentials) {
+      const storeParameters = useStoreParameters()
       createUserWithEmailAndPassword(auth, credentials.email, credentials.password).then((userCredential) => {
         const user = userCredential.user
+        storeParameters.initParameters(user.uid)
       }).catch((error) => {
         console.log('message d\'erreur : ', error.message)
       })

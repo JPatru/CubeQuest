@@ -262,13 +262,13 @@
       win(colRaw.value[0],colRaw.value[1])
       playCard.value = false
     } else {
-      loose()
+      lose()
     }
     questionCall.value++
     randomizeAnswers()
   }
 
-  const loose = (col, raw) => {
+  const lose = (col, raw) => {
     score.value-=5
     showCorrection.value = true
   }

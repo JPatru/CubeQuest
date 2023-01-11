@@ -4,7 +4,7 @@
     aria-label="main navigation"
     role="navigation"
   >
-    <div class="container  is-max-widescreen">
+    <div class="container  is-max-desktop">
       <div class="navbar-brand">
           <RouterLink
             class="navbar-item is-size-4 is-family-monospace"

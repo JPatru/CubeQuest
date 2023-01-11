@@ -4,7 +4,7 @@
     <NavBar />
   </div>
 
-  <div class="container is-max-widescreen px-2 py-4">
+  <div class="container is-max-desktop px-2 py-4">
     <RouterView />
   </div>
 
