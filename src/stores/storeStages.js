@@ -639,14 +639,8 @@ export const useStoreStages = defineStore('storeStages', {
             [['e','2']],
             [['e','\\{0\\}']]
           ]
-        },
-        { 
-          stage: 'stage3',
-          id: 'stage3niveau1',
-          subStage: '1',
-          type: 'Triangles',
         }
-      ],
+      ]
     }
   },
   actions: {

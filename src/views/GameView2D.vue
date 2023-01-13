@@ -159,7 +159,33 @@
 
         </footer>
       </div>
+
     </div>
+
+
+    <!-- Affichage Fin de niveau -->
+
+    <div v-if="endGame" class="question card">
+      <header class="card-content has-text-centered">
+        <p class="is-size-3">
+          Niveau terminé !
+        </p>
+      </header>
+
+      <div class="card-content">
+        <p class="is-size-2">score : {{ score }}</p>
+        
+        <RouterLink
+          @click="save(score)"
+          class="button has-background-success m-2"
+          to="/levelSelection"
+        >
+        Retour au menu
+        </RouterLink>
+
+      </div>
+
+    </div>  
 
 
 
@@ -179,20 +205,23 @@
 //
 //
   import { useStoreStages } from '@/stores/storeStages'
+  import { useStoreParameters } from '@/stores/storeParameters'
   import { storeToRefs } from 'pinia'
   import { ref, onBeforeMount, computed } from 'vue'
   import { useRoute } from 'vue-router'
 
 //
 // STORES
-//
-  
+//  
   const storeStages = useStoreStages()
+  const storeParameters = useStoreParameters()
+
 
 //
 // REFS
 //
   const { stages } = storeToRefs(storeStages)
+  const { parameters } = storeToRefs(storeParameters)
   const isOverTable = ref([])
   const stage = ref()
   const stageIndex = ref()
@@ -202,6 +231,7 @@
   const showCorrection = ref(false)
   const questionCall = ref(0)
   const goodAnswer = ref(null)
+  const endGame = ref(false)
   const colRaw = ref([])
   const score = ref(100)
   const progress = ref(0)
@@ -251,9 +281,6 @@
     }
     question.value = stages.value[stageIndex.value].questions[randomQuestions.value[questionCall.value]]
     correction.value = stages.value[stageIndex.value].correction[randomQuestions.value[questionCall.value]]
-    console.log(randomQuestions.value[questionCall.value]);
-    console.log(question.value);
-    console.log(correction.value);
 
   }
 
@@ -276,12 +303,22 @@
   const win = (col, raw) => {
     let position = raw + col*9
     isOverTable.value[position] = 2
-    progress.value+=100/27
+    progress.value+=10000/27
+    console.log(progress.value);
+    if (progress.value >= 100) {
+      endGame.value = true
+    }
   }
 
   const hideCorrection = () => {
     showCorrection.value = false
     playCard.value = false
+  }
+
+  const save = (score) => {
+    parameters.value.progression[stageIndex.value].completed = true
+    parameters.value.progression[stageIndex.value].score = score
+    storeParameters.updateProgression()
   }
 
   const getImageUrl = (picName) => {

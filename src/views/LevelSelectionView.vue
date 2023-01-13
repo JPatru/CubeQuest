@@ -9,7 +9,7 @@
       v-for="stageObject in stagesArray[i-1]"
       :key="stageObject.stage"
       :stageObject="stageObject"
-      class="column is-one-third"
+      class="column"
     />
 
   </div>

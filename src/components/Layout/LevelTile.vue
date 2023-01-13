@@ -31,7 +31,7 @@
             </RouterLink>
 
             <div v-else  class="button is-primary is-small is-success mt-2 is-centered">
-              <p class="is-size-7 has-text--success-light is-inline">Niv. 1</p> 
+              <p class="is-size-7 has-text--success-light is-inline">Niv. {{ stageObject.subStage[i-1] }}</p> 
               <i class="mdi mdi-star-check is-large is-size-6 has-text--success-light"></i>
             </div>
           </div>
@@ -44,7 +44,6 @@
           <p class="container is-size-5">{{ stageObject.type }}</p>
         </div>
       </div>
-
     </div>
 
   </div> 
@@ -60,6 +59,18 @@
 // IMPORTS
 //
   import { ref } from 'vue'
+  import { useStoreParameters } from '@/stores/storeParameters'
+  import { storeToRefs } from 'pinia'
+
+//
+// STORES
+//  
+  const storeParameters = useStoreParameters()
+
+//
+// REFS
+//
+  const { parameters } = storeToRefs(storeParameters)
 
 //
 // PROPS
@@ -70,8 +81,6 @@
       required: true
     }
   })
-
-  console.log(props.stageObject.stage);
 
   const getImageUrl = (folder) => {
       return new URL(`../../assets/images/${folder}/preview.png`, import.meta.url).href

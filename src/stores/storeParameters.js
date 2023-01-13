@@ -50,7 +50,7 @@ export const useStoreParameters = defineStore('storeParameters', {
     },
     async updateProgression() {      
       await updateDoc( doc(collection(db, 'parameters'), this.id), {
-        progression: this.progression
+        progression: this.parameters.progression
       })
     }
   }
