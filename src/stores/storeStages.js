@@ -644,13 +644,7 @@ export const useStoreStages = defineStore('storeStages', {
           stage: 'stage3',
           id: 'stage3niveau1',
           subStage: '1',
-          type: 'Images / antécédents',
-        },
-        { 
-          stage: 'stage4',
-          id: 'stage4niveau1',
-          subStage: '1',
-          type: 'Images / antécédents',
+          type: 'Triangles',
         }
       ],
     }
