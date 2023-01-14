@@ -60,9 +60,11 @@
 
     let tempArraysubstage = []
     let tempArrayId = []
+    let tempIndex = []
     for (let i = 0; i < tempArrayStage.length; i++) {
-      tempArraysubstage[i] = []      
-      tempArrayId[i] = []          
+      tempArraysubstage[i] = []   
+      tempArrayId[i] = []      
+      tempIndex[i] = []    
     }
 
     for (let i = 0; i < tempArrayStage.length; i++) {
@@ -70,6 +72,7 @@
         if (stages.value[j].stage === tempArrayStage[i]) {
           tempArraysubstage[i].push(stages.value[j].subStage)
           tempArrayId[i].push(stages.value[j].id)
+          tempIndex[i].push(j)
         }
       }
     }
@@ -80,7 +83,8 @@
         stage: tempArrayStage[i],
         id: tempArrayId[i],
         subStage: tempArraysubstage[i],
-        type: tempArrayType[i]
+        type: tempArrayType[i],
+        index: tempIndex[i]
       }
       stagesArrayTemp.push(stageObject)
     }

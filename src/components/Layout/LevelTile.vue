@@ -23,7 +23,7 @@
             class="tile"
           >
             <RouterLink
-              v-if="true"
+              v-if="!parameters.progression[stageObject.index[i-1]].completed"
               class="button is-primary is-small is-warning mt-2 is-centered"
               :to="`${stageObject.id[i-1]}`"
             >
@@ -71,6 +71,7 @@
 // REFS
 //
   const { parameters } = storeToRefs(storeParameters)
+  const progressionPosition = ref(null)
 
 //
 // PROPS
