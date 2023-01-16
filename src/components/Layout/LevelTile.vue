@@ -8,7 +8,7 @@
         <div class="tile is-1"></div>
 
         <div class="tile is-6">
-          <figure class="image is-128x128 is-inline-block">
+          <figure @click="showFrame" class="image is-128x128 is-inline-block">
             <img :src="getImageUrl(stageObject.stage)" >
           </figure>
         </div>
@@ -31,8 +31,8 @@
             </RouterLink>
 
             <div v-else  class="button is-primary is-small is-success mt-2 is-centered">
-              <p class="is-size-7 has-text--success-light is-inline">Niv. {{ stageObject.subStage[i-1] }}</p> 
-              <i class="mdi mdi-star-check is-large is-size-6 has-text--success-light"></i>
+              <p class="is-size-7 has-text--success-light is-inline">Niv. {{ stageObject.subStage[i-1] }}</p>
+              <i v-if="parameters.progression[stageObject.index[i-1]].score == 100" class="mdi mdi-star-check is-large is-size-6 has-text--success-light pl-2"></i>
             </div>
           </div>
 
@@ -44,7 +44,16 @@
           <p class="container is-size-5">{{ stageObject.type }}</p>
         </div>
       </div>
+
+      <div class="tile is-parent">
+        <div class="tile">
+          <p v-if="levelScore > 0" class="container is-size-3">{{ levelScore }} / {{ 100 * stageObject.index.length }}</p>
+          <p v-else class="container is-size-3 mdi mdi-null"></p>
+        </div>
+      </div>
     </div>
+
+    
 
   </div> 
 </div>
@@ -58,7 +67,7 @@
 //
 // IMPORTS
 //
-  import { ref } from 'vue'
+  import { ref, computed } from 'vue'
   import { useStoreParameters } from '@/stores/storeParameters'
   import { storeToRefs } from 'pinia'
 
@@ -74,6 +83,20 @@
   const progressionPosition = ref(null)
 
 //
+// SCORE
+//
+  const levelScore = computed(() => {
+    let score = 0
+    let startIndex = props.stageObject.index[0]
+    let endIndex = props.stageObject.index[0]+props.stageObject.index.length
+    for (let i = startIndex; i < endIndex; i++) {
+      console.log(score);
+      score += parameters.value.progression[i].score      
+    }
+    return score
+  })
+
+//
 // PROPS
 //
   const props = defineProps({
@@ -82,6 +105,13 @@
       required: true
     }
   })
+
+//
+// SHOWFRAME
+//
+  const showFrame = () => {
+    console.log('tableau');
+  }
 
   const getImageUrl = (folder) => {
       return new URL(`../../assets/images/${folder}/preview.png`, import.meta.url).href

@@ -1,7 +1,4 @@
 <template>
-  <div>
-    Player
-  </div>
   <div
     class="button is-danger"
     @click="resetProgression()"

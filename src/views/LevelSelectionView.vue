@@ -9,7 +9,7 @@
       v-for="stageObject in stagesArray[i-1]"
       :key="stageObject.stage"
       :stageObject="stageObject"
-      class="column"
+      class="column is-one-third"
     />
 
   </div>
@@ -88,7 +88,6 @@
       }
       stagesArrayTemp.push(stageObject)
     }
-    console.log(stagesArrayTemp);
 
     let columnNumber = 3
     let rawNumber
@@ -106,9 +105,6 @@
         }                 
       }      
     }
-
-console.log(stagesArray.value);
-
   })
 
 //

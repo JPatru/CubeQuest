@@ -13,31 +13,11 @@ export const useStoreParameters = defineStore('storeParameters', {
       id:'',
       parameters: {
         progression: [
-          {
-            id: 'stage1niveau1',
-            completed: false,
-            score: 0,
-          },
-          {
-            id: 'stage1niveau2',
-            completed: false,
-            score: 0,
-          },
-          {
-            id: 'stage1niveau3',
-            completed: false,
-            score: 0,
-          },
-          {
-            id: 'stage2niveau1',
-            completed: false,
-            score: 0,
-          },
-          {
-            id: 'stage2niveau2',
-            completed: false,
-            score: 0,
-          }
+          { id: 'stage1niveau1', completed: false, score: 0 },
+          { id: 'stage1niveau2', completed: false, score: 0 },
+          { id: 'stage1niveau3', completed: false, score: 0 },
+          { id: 'stage2niveau1', completed: false, score: 0 },
+          { id: 'stage2niveau2', completed: false, score: 0 }
         ]
       }
     }
@@ -70,9 +50,34 @@ export const useStoreParameters = defineStore('storeParameters', {
     getParameters() {
       if (getParametersSnapshot) getParametersSnapshot() // fermer le listener actif
 
+      let newLevelsIds = []
+      let docUpdated = []
+      for (let i = 0; i < this.parameters.progression.length; i++) {
+        newLevelsIds.push(this.parameters.progression[i].id)
+      }
+
       getParametersSnapshot = onSnapshot(ParametersDocRef, (doc) => {
-        this.parameters = doc.data()
+        // Ajout des nouveaux niveaux.
+        for (let i = 0; i < this.parameters.progression.length; i++) {
+          let idToDelete
+          for (let j = 0; j < doc.data().progression.length; j++) {
+            if (this.parameters.progression[i].id === doc.data().progression[j].id)
+              idToDelete = this.parameters.progression[i].id
+              newLevelsIds = newLevelsIds.filter(id => id !== idToDelete)
+          }          
+        };
+        docUpdated = doc.data().progression
+        for (let i = 0; i < newLevelsIds.length; i++) {
+          docUpdated.push({
+            id: newLevelsIds[i],
+            completed: false,
+            score: 0
+          })   
+        }
+
+        this.parameters.progression = docUpdated
       })
+
     },
     async updateProgression() {      
       await updateDoc( doc(collection(db, 'parameters'), this.id), {
