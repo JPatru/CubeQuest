@@ -303,7 +303,7 @@
   const win = (col, raw) => {
     let position = raw + col*9
     isOverTable.value[position] = 2
-    progress.value+=10000/27
+    progress.value+=100/27
     console.log(progress.value);
     if (progress.value >= 100) {
       endGame.value = true

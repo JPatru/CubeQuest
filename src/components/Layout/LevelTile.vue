@@ -8,7 +8,7 @@
         <div class="tile is-1"></div>
 
         <div class="tile is-6">
-          <figure @click="showFrame" class="image is-128x128 is-inline-block">
+          <figure @click="hasClicked = true" class="image is-128x128 is-inline-block">
             <img :src="getImageUrl(stageObject.stage)" >
           </figure>
         </div>
@@ -51,13 +51,16 @@
           <p v-else class="container is-size-3 mdi mdi-null"></p>
         </div>
       </div>
-    </div>
-
-    
+    </div>    
 
   </div> 
-</div>
 
+  <div class="diapo" @click="hasClicked = false" v-if="hasClicked">
+    <img :src="getImageWithScore(stageObject.stage,imageScore())" >
+
+  </div>
+
+</div>
 
 
 </template>
@@ -81,6 +84,7 @@
 //
   const { parameters } = storeToRefs(storeParameters)
   const progressionPosition = ref(null)
+  const hasClicked = ref(false)
 
 //
 // SCORE
@@ -90,7 +94,6 @@
     let startIndex = props.stageObject.index[0]
     let endIndex = props.stageObject.index[0]+props.stageObject.index.length
     for (let i = startIndex; i < endIndex; i++) {
-      console.log(score);
       score += parameters.value.progression[i].score      
     }
     return score
@@ -117,8 +120,47 @@
       return new URL(`../../assets/images/${folder}/preview.png`, import.meta.url).href
   }
 
+  const getImageWithScore = (folder,file) => {
+      return new URL(`../../assets/images/${folder}/${file}.jpg`, import.meta.url).href
+  }
 
-
-
+  const imageScore = () => {
+    let imgScore
+    let scaledScore = levelScore.value / props.stageObject.index.length
+      if (scaledScore < 20) {
+        imgScore = '0'
+      }
+      if (scaledScore >= 20) {
+        imgScore = '50'
+      }
+      if (scaledScore >= 30) {
+        imgScore = '100'
+      }
+      if (scaledScore >= 50) {
+        imgScore = '150'
+      }
+      if (scaledScore >= 70) {
+        imgScore = '200'
+      }
+      if (scaledScore >= 85) {
+        imgScore = '250'
+      }
+      console.log('imgScore',imgScore);
+      console.log('levelScore',levelScore.value);
+      return imgScore
+  }
 
 </script>
+
+<style>
+  .diapo {
+    z-index: 10;
+    position: absolute;
+    top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;    
+  }
+</style>
