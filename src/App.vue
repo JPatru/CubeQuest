@@ -42,8 +42,14 @@
 <style>
   @import 'bulma/css/bulma.min.css';
 
+  /* html {
+    width: 1440px;
+    height: 1024px;
+    background-image: url("assets/images/loginPage/loginBckGrnd.png");
+    background-repeat: no-repeat;
+  } */
   html {
-    background-color: #ffffff;
+    background-color: #e3f2fd;
   }
 
 </style>

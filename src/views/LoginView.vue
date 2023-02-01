@@ -1,49 +1,51 @@
 <template>
-  <div class="app-title block has-text-centered mt-12">
+  <div class="app-title block has-text-centered mt-12 mb-6">
     <h1 class="has-text-weight-bold">Cube Quest</h1>
   </div>
-  <div class="block auth-form">
-    <div class="tabs is-centered is-boxed is-normal">
+
+  <div class="columns">
+
+
+
+    <div class="block auth-form column is-one-third">
+    <div class="tabs is-centered is-normal">
       <ul>
         <li
           :class="{ 'is-active' : !register }"
         >
-          <a @click.prevent="register=false">Connexion</a>
+          <a class="is-size-7" @click.prevent="register=false">Connexion</a>
         </li>
         <li
           :class="{ 'is-active' : register }"
         >
-          <a @click.prevent="register=true">Créer un compte</a>
+          <a class="is-size-7" @click.prevent="register=true">Créer un compte</a>
         </li>
       </ul>
     </div>
 
     <div class="card auth-form">
-      <div class="card-content">
-        <div class="title has-text-centered">
-          {{ formTitle }}
-        </div>
+      <div class="card-content p-4">
 
         <form
           @submit.prevent="onSubmit"
         >
           <div class="field">
-            <label class="label">Identifiant</label>
+            <label class="label is-size-7">Identifiant</label>
             <div class="control">
               <input
                 v-model="credentials.email"
-                class="input"
+                class="input is-small"
                 placeholder="Identifiant"
                 type="email"
               >
             </div>
           </div>
           <div class="field">
-            <label class="label">Mot de passe</label>
+            <label class="label is-size-7">Mot de passe</label>
             <div class="control">
               <input
                 v-model="credentials.password"
-                class="input"
+                class="input is-small"
                 placeholder="Mot de passe"
                 type="password"
               >
@@ -52,7 +54,7 @@
 
           <div class="field is-grouped is-grouped-right">
             <p class="control">
-              <button class="button is-primary is-info">
+              <button class="button is-primary is-info is-small is-rounded">
                 {{ formTitle }}
               </button>
             </p>
@@ -63,6 +65,10 @@
     </div>
 
   </div>
+
+  </div>
+
+
 </template>
 
 <script setup>
@@ -114,16 +120,25 @@
 
 </script>
 
-<style >
+<style scoped>
+  @import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
+
+  @font-face {
+    font-family: "cubic";
+    src: url("../assets/fonts/cubic.ttf");
+  }
+
 .app-title {
-  margin-top: 100px;
-  font-family: 'Quicksand', serif;
+  margin-top: 60px;
+  font-family: 'Poiret One', cursive, serif;
+  letter-spacing: 16px;
   font-size: 96px;
-  text-shadow: 4px 4px 4px #aaa;
+  /* text-shadow: 2px 4px 24px #b8b8b8; */
 }
 
 .auth-form {
-  max-width: 450px;
+  max-width: 220px;
   margin: 0 auto;
+
 }
 </style>
