@@ -4,12 +4,14 @@
     @mouseout="resetTable"
   > 
     <header class="card-header columns">
-      <p class="column is-half">
+      <p class="column is-one-third">
         {{ stages[stageIndex].stage }} / Niveau {{ stages[stageIndex].subStage }}
       </p>
-      <p class="column is-half">
+      <p class="column is-one-third">
         score : {{ score }}
       </p>
+      <p v-if="combo <5" class="column is-one-third"> enchaînement : {{ combo }} </p>
+      <p v-if="combo ===5" class="column is-one-third has-text-success has-text-weight-bold"> enchaînement : {{ combo }} </p>
     </header>
     
     <div v-for="i in 9" :key="i" class="columns is-inline-block is-mobile is-centered has-text-centered is-gapless">
@@ -131,7 +133,7 @@
 
           <div v-for="i in correction.length" :key="i" class="content m-0 is-inline">
 
-            <!-- Si question est du texte -->
+            <!-- Si correction est du texte -->
             <div
               v-if="correction[i-1][0] === 't'"
               class="is-inline is-size-4"
@@ -139,15 +141,40 @@
               {{ correction[i-1][1] }}
             </div>
         
-            <!-- Si question est du latex -->
+            <!-- Si correction est du latex -->
             <div v-if="correction[i-1][0] === 'e'" class="is-inline is-size-4">
               <math-jax :latex="`${ correction[i-1][1] }`" />
             </div>
 
-            <!-- Si question est une image -->
+            <!-- Si correction est une image -->
             <div v-if="correction[i-1][0] === 'im'" class="">
               <img :src="getImageQuestion(correction[i-1][1])" >
             </div> 
+
+            <!-- Si correction est un tableau -->
+            <div v-if="correction[i-1][0][0] === ('tabh'||'tabb')">
+              <table class="table is-striped">
+                <thead>                
+                  <tr>
+                    <template v-for="j in correction[i-1][0].length-1" :key="j">
+                      <th v-if="correction[i-1][0][0] === 'tabh'">
+                        <math-jax v-if="correction[i-1][0][j][0] === 'e'" :latex="`${ correction[i-1][0][j][1] }`" />
+                      </th>
+                    </template>
+                  </tr>              
+                </thead>
+                <tbody>                
+                  <tr v-for="k in correction[i-1].length-1" :key="k">
+                    <template v-for="j in correction[i-1][k].length-1" :key="j">
+                      <td v-if="correction[i-1][1][0] === 'tabb'">
+                        <math-jax v-if="correction[i-1][k][j][0] === 'e'" :latex="`${ correction[i-1][k][j][1] }`" />
+                      </td>          
+                    </template>                         
+                  </tr>
+                </tbody>
+              </table>
+          
+            </div>
             
           </div>
         </div>
@@ -233,7 +260,9 @@
   const goodAnswer = ref(null)
   const endGame = ref(false)
   const colRaw = ref([])
-  const score = ref(100)
+  const score = ref(0)
+  const combo = ref(0)
+  const fail = ref(0)
   const progress = ref(0)
   const question = ref([])
   const correction = ref([])
@@ -296,14 +325,41 @@
   }
 
   const lose = (col, raw) => {
-    score.value-=5
+    fail.value+=1
+    combo.value = 0
     showCorrection.value = true
+    if (fail.value>=3) {
+      console.log('penalité')
+      for (let i = 0; i < isOverTable.value.length; i++) {
+        if (isOverTable.value[i] === 2) {
+          isOverTable.value[i] = 0
+          if (score.value >= 10) {
+            score.value -= 10
+          }
+          break
+        }
+      }
+      let revealedTiles = 0
+      for (let i = 0; i < isOverTable.value.length; i++) {
+        if (isOverTable.value[i] === 2) {
+          revealedTiles+=1
+        }        
+      }
+      if (revealedTiles === 0) {
+        score.value = 0
+      }
+    }
   }
 
   const win = (col, raw) => {
+    fail.value = 0
     let position = raw + col*9
     isOverTable.value[position] = 2
     progress.value+=100/27
+    score.value+=(5+3*combo.value)
+    if (combo.value <5 ) {
+      combo.value+=1
+    }
     console.log(progress.value);
     if (progress.value >= 100) {
       endGame.value = true

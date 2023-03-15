@@ -27,13 +27,21 @@
               class="button is-primary is-small is-warning mt-2 is-centered"
               :to="`${stageObject.id[i-1]}`"
             >
-              Niv. {{ stageObject.subStage[i-1] }}
+              Défi {{ stageObject.subStage[i-1] }}
+            </RouterLink>
+            
+            <RouterLink
+              v-else
+              class="button is-primary is-small is-success mt-2 is-centered"
+              :to="`${stageObject.id[i-1]}`"
+            >
+              Rejouer
             </RouterLink>
 
-            <div v-else  class="button is-primary is-small is-success mt-2 is-centered">
-              <p class="is-size-7 has-text--success-light is-inline">Niv. {{ stageObject.subStage[i-1] }}</p>
+            <!-- <div v-else  class="button is-primary is-small is-success mt-2 is-centered">
+              <p class="is-size-7 has-text--success-light is-inline">Défi {{ stageObject.subStage[i-1] }}</p>
               <i v-if="parameters.progression[stageObject.index[i-1]].score == 100" class="mdi mdi-star-check is-large is-size-6 has-text--success-light pl-2"></i>
-            </div>
+            </div> -->
           </div>
 
         </div>
@@ -47,7 +55,7 @@
 
       <div class="tile is-parent">
         <div class="tile">
-          <p v-if="levelScore > 0" class="container is-size-3">{{ levelScore }} / {{ 100 * stageObject.index.length }}</p>
+          <p v-if="levelScore > 0" class="container is-size-3">Score : {{ levelScore }} </p>
           <p v-else class="container is-size-3 mdi mdi-null"></p>
         </div>
       </div>
