@@ -1,5 +1,22 @@
 <template>
 
+  <div v-if="parameters.freshProfile" class="card mt-6 has-background-warning">
+    <header class="card-header ">
+      <p class="card-header-title is-centered is-size-2">
+        Instructions
+      </p>
+    </header>
+    <div class="card-content">
+      <div class="content has-text-justified is-size-4">        
+        <p>Cube Quest est un quiz mathématique. Choississez le thème du questionnaire et lancez-vous dans une série de 27 questions pour révéler l'image cachée.<br> Votre score est important ! Restez concentré(e). A chaque bonne réponse, vous gagnez des points, en enchaînant les bonnes réponses vous activez un combo qui augmente considérablement le score. Une mauvaise réponse ne fait pas perdre de point mais annule le combo et gare aux erreurs en chaîne... <br><br> Arriverez-vous à atteindre le score parfait de 500 points dans chaque niveau ? <br> En cliquant sur la vignette de chaque niveau, accédez à l'image cachée du stage. Sa netteté dépend de votre score ! </p><p>Il est possible d'enregistrer votre progression en vous rendant dans Mon Compte. </p>
+        <div class="has-text-centered">          
+          <div @click="gotIt" class="button is-large is-primary is-success mt-2 is-inline has-text-centered">J'ai compris !</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div v-if="!parameters.freshProfile" >  
   <div
     class="columns"
     v-for="i in stagesArray.length"
@@ -13,6 +30,7 @@
     />
 
   </div>
+</div>
 
 </template>
 
@@ -58,11 +76,11 @@
       tempValue = stages.value[i].stage
     }
 
-    let tempArraysubstage = []
+    let tempArrayOrientation = []
     let tempArrayId = []
     let tempIndex = []
     for (let i = 0; i < tempArrayStage.length; i++) {
-      tempArraysubstage[i] = []   
+      tempArrayOrientation[i] = []   
       tempArrayId[i] = []      
       tempIndex[i] = []    
     }
@@ -70,7 +88,7 @@
     for (let i = 0; i < tempArrayStage.length; i++) {
       for (let j = 0; j < stages.value.length; j++) {
         if (stages.value[j].stage === tempArrayStage[i]) {
-          tempArraysubstage[i].push(stages.value[j].subStage)
+          tempArrayOrientation[i].push(stages.value[j].orientation)
           tempArrayId[i].push(stages.value[j].id)
           tempIndex[i].push(j)
         }
@@ -82,7 +100,7 @@
       let stageObject = {
         stage: tempArrayStage[i],
         id: tempArrayId[i],
-        subStage: tempArraysubstage[i],
+        orientation: tempArrayOrientation[i],
         type: tempArrayType[i],
         index: tempIndex[i]
       }
@@ -106,6 +124,14 @@
       }      
     }
   })
+
+//
+// INFO PANEL
+//
+  const gotIt = () => {
+    storeParameters.gotIt()
+  }
+
 
 //
 // REFS

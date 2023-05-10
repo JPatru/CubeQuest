@@ -14,13 +14,13 @@ export const useStoreParameters = defineStore('storeParameters', {
       parameters: {
         progression: [
           { id: 'stage1niveau1', completed: false, score: 0 },
-          { id: 'stage1niveau2', completed: false, score: 0 },
-          { id: 'stage1niveau3', completed: false, score: 0 },
           { id: 'stage2niveau1', completed: false, score: 0 },
-          { id: 'stage2niveau2', completed: false, score: 0 },
           { id: 'stage3niveau1', completed: false, score: 0 },
           { id: 'stage4niveau1', completed: false, score: 0 },
-          { id: 'stage4niveau2', completed: false, score: 0 }
+          { id: 'stage5niveau1', completed: false, score: 0 },
+          { id: 'stage6niveau1', completed: false, score: 0 },
+          { id: 'stage7niveau1', completed: false, score: 0 },
+          { id: 'stage8niveau1', completed: false, score: 0 }
         ]
       }
     }
@@ -46,7 +46,8 @@ export const useStoreParameters = defineStore('storeParameters', {
       this.parameters.progression = NewProgression
 
       await setDoc(doc(db, "parameters", id), {
-        progression: this.parameters.progression
+        progression: this.parameters.progression,
+        freshProfile: true
       })
 
     },
@@ -86,6 +87,13 @@ export const useStoreParameters = defineStore('storeParameters', {
       await updateDoc( doc(collection(db, 'parameters'), this.id), {
         progression: this.parameters.progression
       })
+    },
+    async gotIt() {
+      let status = this.parameters.freshProfile  
+      await updateDoc( doc(collection(db, 'parameters'), this.id), {
+        freshProfile: !status
+      })
+      this.parameters.freshProfile = !status
     }
   }
 })

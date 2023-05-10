@@ -1,38 +1,84 @@
 <template>
   <div
-    class="playground container card content has-text-centered p-6"
+    class="playground container card content has-text-centered p-4"
     @mouseout="resetTable"
   > 
-    <header class="card-header columns">
-      <p class="column is-one-third">
-        {{ stages[stageIndex].stage }} / Niveau {{ stages[stageIndex].subStage }}
-      </p>
-      <p class="column is-one-third">
-        score : {{ score }}
-      </p>
-      <p v-if="combo <5" class="column is-one-third"> enchaînement : {{ combo }} </p>
-      <p v-if="combo ===5" class="column is-one-third has-text-success has-text-weight-bold"> enchaînement : {{ combo }} </p>
-    </header>
-    
-    <div v-for="i in 9" :key="i" class="columns is-inline-block is-mobile is-centered has-text-centered is-gapless">
-      <div v-for="j in 3" :key="j" class="column ">
-        
-        <div class="case has-text-centered">
-          <figure
-            class="image is-96x96 is-inline-block m-0"
-            @click="play(j-1,i-1)"
-            @mouseenter="inFigure(j-1,i-1)"
-            @mouseout="outFigure(j-1,i-1)"
-          >
-            <img v-if="isOverTable[(i-1+(j-1)*9)] == 0" :src="getImageUrl('unrevealed.png')" >
-            <img v-if="isOverTable[(i-1+(j-1)*9)] == 1" :src="getImageUrl('unrevealedHover.png')" >
-            <img v-if="isOverTable[(i-1+(j-1)*9)] == 2" :src="getImageUrl(imgFile[(i-1+(j-1)*9)])" 
-            >
-          </figure>
-        </div>
-
+    <div v-if="stages[stageIndex].orientation == 'h'">
+      <div class="notification columns is-link is-light">
+        <p class="column is-one-third m-0 is-size-4">
+          {{ stages[stageIndex].type }} 
+        </p>
+        <p class="column is-one-third  is-size-4 m-0">
+          score : {{ score }}
+        </p>
+        <p v-if="combo <5" class="column is-one-third is-size-4"> combo : {{ combo }} </p>
+        <p v-if="combo ===5" class="column is-one-third has-text-success has-text-weight-bold is-size-4"> enchaînement : {{ combo }} </p>
       </div>
+
+      <div class="mt-6">
+        <div v-for="i in 9" :key="i" class="columns is-inline-block is-mobile is-centered has-text-centered is-gapless">
+          <div v-for="j in 3" :key="j" class="column ">
+            
+            <div class="case has-text-centered">
+              <figure
+                class="image is-96x96 is-inline-block m-0"
+                @click="play(j-1,i-1)"
+                @mouseenter="inFigure(j-1,i-1)"
+                @mouseout="outFigure(j-1,i-1)"
+              >
+                <img v-if="isOverTable[(i-1+(j-1)*9)] == 0" :src="getImageUrl('unrevealed.png')" >
+                <img v-if="isOverTable[(i-1+(j-1)*9)] == 1" :src="getImageUrl('unrevealedHover.png')" >
+                <img v-if="isOverTable[(i-1+(j-1)*9)] == 2" :src="getImageUrl(imgFile[(i-1+(j-1)*9)])" 
+                >
+              </figure>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
     </div>
+
+
+    <div v-if="stages[stageIndex].orientation == 'v'" class="columns">
+      <div class="column is-half">
+        <div class="notification is-link is-light">
+          <p class="m-0 is-size-4">
+            {{ stages[stageIndex].type }} <br>
+            score : {{ score }} <br>
+            <span v-if="combo <5"> combo : {{ combo }} </span>
+            <span v-if="combo ===5" class="column has-text-success has-text-weight-bold"> combo : {{ combo }} </span>
+          </p>      
+        </div>
+      </div>
+
+
+      <div class="column is-half mt-0 mb-0">
+        <div v-for="i in 3" :key="i" class="columns is-inline-block is-mobile is-centered has-text-centered is-gapless mb-0">
+          <div v-for="j in 9" :key="j" class="column ">
+            
+            <div class="case has-text-centered">
+              <figure
+                class="image is-96x96 is-inline-block m-0"
+                @click="play(j-1,i-1)"
+                @mouseenter="inFigure(j-1,i-1)"
+                @mouseout="outFigure(j-1,i-1)"
+              >
+                <img v-if="isOverTable[(i-1+(j-1)*3)] == 0" :src="getImageUrl('unrevealed.png')" >
+                <img v-if="isOverTable[(i-1+(j-1)*3)] == 1" :src="getImageUrl('unrevealedHover.png')" >
+                <img v-if="isOverTable[(i-1+(j-1)*3)] == 2" :src="getImageUrl(imgFile[(i-1+(j-1)*3)])" 
+                >
+              </figure>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+    
+    
+
 
     <div v-if="playCard" class="question card">
       <header class="card-header">
@@ -302,7 +348,13 @@
   }
 
   const play = (col, raw) => {
-    let position = raw + col*9
+    let position
+    if(stages.value[stageIndex.value].orientation == 'h') {      
+      position = raw + col*9
+    }
+    if(stages.value[stageIndex.value].orientation == 'v') {      
+      position = raw + col*3
+    }
     if (isOverTable.value[position] !== 2) {
       playCard.value = true
       colRaw.value[0] = col
@@ -353,10 +405,19 @@
 
   const win = (col, raw) => {
     fail.value = 0
-    let position = raw + col*9
+    let position
+    if(stages.value[stageIndex.value].orientation == 'h') {      
+      position = raw + col*9
+    }
+    if(stages.value[stageIndex.value].orientation == 'v') {      
+      position = raw + col*3
+    }
     isOverTable.value[position] = 2
     progress.value+=100/27
     score.value+=(5+3*combo.value)
+    if (score.value===495) {
+      score.value = 500
+    }
     if (combo.value <5 ) {
       combo.value+=1
     }
@@ -378,7 +439,7 @@
   }
 
   const getImageUrl = (picName) => {
-      return new URL(`../assets/images/${stages.value[stageIndex.value].stage}/${stages.value[stageIndex.value].subStage}/${picName}`, import.meta.url).href
+      return new URL(`../assets/images/${stages.value[stageIndex.value].stage}/tiles/${picName}`, import.meta.url).href
   }
 
 const getImageQuestion = (picName) => {
@@ -407,15 +468,27 @@ const getImageQuestion = (picName) => {
 //
 // MOUSEOVER
 //
-const inFigure = (col, raw) => {
-    let position = raw + col*9
+  const inFigure = (col, raw) => {
+    let position
+    if(stages.value[stageIndex.value].orientation == 'h') {      
+      position = raw + col*9
+    }
+    if(stages.value[stageIndex.value].orientation == 'v') {      
+      position = raw + col*3
+    }
     if (isOverTable.value[position] !== 2) {
       isOverTable.value[position] = 1
     }
   }
 
   const outFigure = (col, raw) => {
-    let position = raw + col*9
+    let position
+    if(stages.value[stageIndex.value].orientation == 'h') {      
+      position = raw + col*9
+    }
+    if(stages.value[stageIndex.value].orientation == 'v') {      
+      position = raw + col*3
+    }
     if (isOverTable.value[position] !== 2) {
       isOverTable.value[position] = 0
     }
@@ -451,7 +524,7 @@ const inFigure = (col, raw) => {
   }
   .playground {
     padding: 0px;
-    height: 500px;
+    height: 980px;
     width: 1020px;
   }
   .case {

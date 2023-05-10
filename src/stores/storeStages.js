@@ -7,8 +7,8 @@ export const useStoreStages = defineStore('storeStages', {
         {
           stage: 'stage1',
           id: 'stage1niveau1',
-          subStage: '1',
-          type: 'Priorités de calcul',
+          orientation: 'h',
+          type: 'Priorités de calcul #1',
           questions: [
             [['e','\\dfrac{2 \\times 2}{2 + 2}=']],
             [['e','2 \\times 2 - 2=']],
@@ -64,10 +64,10 @@ export const useStoreStages = defineStore('storeStages', {
           correction: [[['e','\\dfrac{2\\times2}{2+2}=\\dfrac{4}{4}=1']],[['e','2\\times2-2=4-2=2']],[['e','\\dfrac{2\\times2\\times2-2}{2}= \\dfrac{8-2}{2}=\\dfrac{6}{2}=3']],[['e','2\\times2-2+2=4-2+2= 2+2=4']],[['e','2+\\dfrac{2}{2}+2=2+1+2=5']],[['e','2+2\\times2=2+4=6']],[['e','2\\times(2+2)-\\dfrac{2}{2}=2\\times4-1=8-1=7']],[['e','2\\times2+2\\times2=4+4=8']],[['e','(2+2)\\times2+\\dfrac{2}{2}=4\\times2+1=8+1=9']],[['e','(2+2\\times2)\\times2-2=(2+4)\\times2-2=6\\times2-2=12-2= 10']],[['e','2+2\\times2\\times2+2-\\dfrac{2}{2}=2+8+2-1=11']],[['e','4\\times(2+1)=4\\times3=12']],[['e','\\dfrac{3\\times3}{3+3+3}=\\dfrac{9}{9}=1']],[['e','\\dfrac{3+3}{3}=\\dfrac{6}{3}=2']],[['e','3\\times3-(3+3)=3\\times3-6=9-6=3']],[['e','3+\\dfrac{3}{3}=}{4}{2}{3+\\dfrac{3}{3}=3+1=4']],[['e','3+\\dfrac{3+3}{3}=3+\\dfrac{6}{3}=3+2=5']],[['e','\\dfrac{3\\times3+3\\times3}{3}=\\dfrac{9+9}{3}= \\dfrac{18}{3}=6']],[['e','3+3\\div3+3=3+1+3 =7']],[['e','3\\times3-3\\div3=9-1=8']],[['e','3\\times3\\div(3\\div3)=3\\times3\\div1= 9\\div1=9']],[['e','\\dfrac{33-3}{3}=\\dfrac{30}{3}=10']],[['e','3\\times3+3-3\\div 3=9+3-1= 11']],[['e','3+3\\times3=3+9=12']],[['e','(4+4)\\div(4+4)=8\\div8=1']],[['e','\\dfrac{4\\times4}{4+4}= \\dfrac{16}{8}=2']],[['e','4-\\dfrac{4}{4}= 4-1=3']],[['e','4\\div(4\\div4)= 4\\div1=4']],[['e','4+\\dfrac{4}{4}= 4+1=5']],[['e','4+\\dfrac{4+4}{4}=4+\\dfrac{8}{4}= 4+2=6']],[['e','\\dfrac{44-4\\times4}{4}=\\dfrac{44-16}{4}=\\dfrac{28}{4}= 7']],[['e','4\\times4-4-4= 16-4-4=12-4=8']],[['e','4+\\dfrac{4}{4}+4= 4+1+4=9']],[['e','\\dfrac{44-4}{4}=\\dfrac{40}{4}=10']],[['e','4\\times4-4-\\dfrac{4}{4}=16-4-1=12-1=11']],[['e','16-4=12']],[['e','\\dfrac{5+5+5+5+5}{5\\times5}= \\dfrac{25}{25}=1']],[['e','\\dfrac{5+5}{5}= \\dfrac{10}{5}= 2']],[['e','\\dfrac{5+5\\times5}{5+5}=\\dfrac{5+25}{10}=\\dfrac{30}{10}=3']],[['e','\\dfrac{55+5}{5+5+5}=\\dfrac{60}{15}=4']],[['e','55-(5+5)\\times5=55-10\\times5=55-50=5']],[['e','5+5\\div5=5+1=6']],[['e','5+\\dfrac{5+5}{5}=5+\\dfrac{10}{5}=5+2=7']],[['e','\\dfrac{55+5\\times5}{5+5}=\\dfrac{55+25}{10}=\\dfrac{80}{10}=8']],[['e','\\dfrac{55-(5+5)}{5}= \\dfrac{55-10}{5}=\\dfrac{45}{5}=9']],[['e','5+5-5+5=10-5+5=5+5=10']],[['e','5+5+\\dfrac{5}{5}=5+5+1=11']],[['e','\\dfrac{55+5}{5}=\\dfrac{60}{5}=12']]]
         },
         {
-          stage: 'stage1',
-          id: 'stage1niveau2',
-          subStage: '2',
-          type: 'Priorités de calcul',
+          stage: 'stage2',
+          id: 'stage2niveau1',
+          orientation: 'h',
+          type: 'Priorités de calcul #2',
           questions: [
             [['e','(4+4)\\div(4+4)=']],
             [['e','\\dfrac{4\\times4}{4+4}=']],
@@ -123,10 +123,10 @@ export const useStoreStages = defineStore('storeStages', {
           correction: [[['e','(4+4)\\div(4+4)=8\\div8=1']],[['e','\\dfrac{4\\times4}{4+4}= \\dfrac{16}{8}=2']],[['e','4-\\dfrac{4}{4}= 4-1=3']],[['e','4\\div(4\\div4)= 4\\div1=4']],[['e','4+\\dfrac{4}{4}= 4+1=5']],[['e','4+\\dfrac{4+4}{4}=4+\\dfrac{8}{4}= 4+2=6']],[['e','\\dfrac{44-4\\times4}{4}=\\dfrac{44-16}{4}=\\dfrac{28}{4}= 7']],[['e','4\\times4-4-4= 16-4-4=12-4=8']],[['e','4+\\dfrac{4}{4}+4= 4+1+4=9']],[['e','\\dfrac{44-4}{4}=\\dfrac{40}{4}=10']],[['e','4\\times4-4-\\dfrac{4}{4}=16-4-1=12-1=11']],[['e','16-4=12']],[['e','\\dfrac{5+5+5+5+5}{5\\times5}= \\dfrac{25}{25}=1']],[['e','\\dfrac{5+5}{5}= \\dfrac{10}{5}= 2']],[['e','\\dfrac{5+5\\times5}{5+5}=\\dfrac{5+25}{10}=\\dfrac{30}{10}=3']],[['e','\\dfrac{55+5}{5+5+5}=\\dfrac{60}{15}=4']],[['e','55-(5+5)\\times5=55-10\\times5=55-50=5']],[['e','5+5\\div5=5+1=6']],[['e','5+\\dfrac{5+5}{5}=5+\\dfrac{10}{5}=5+2=7']],[['e','\\dfrac{55+5\\times5}{5+5}=\\dfrac{55+25}{10}=\\dfrac{80}{10}=8']],[['e','\\dfrac{55-(5+5)}{5}= \\dfrac{55-10}{5}=\\dfrac{45}{5}=9']],[['e','5+5-5+5=10-5+5=5+5=10']],[['e','5+5+\\dfrac{5}{5}=5+5+1=11']],[['e','\\dfrac{55+5}{5}=\\dfrac{60}{5}=12']],[['e','\\dfrac{6+6}{6+6}=\\dfrac{12}{12}=1']],[['e','\\dfrac{6+6}{6}=\\dfrac{12}{6}=2']],[['e','\\dfrac{6\\times6}{6+6}=\\dfrac{36}{12}=3']],[['e','6-\\dfrac{6+6}{6}=6-\\dfrac{12}{6}=6-2=4']],[['e','6-6\\div6=6-1=5']],[['e','\\dfrac{6+6+6}{6}\\times\\dfrac{6+6}{6}=\\dfrac{18}{6}\\times\\dfrac{12}{6}=3\\times2=6']],[['e','6+\\dfrac{6}{6}=6+1=7']],[['e','6+\\dfrac{6+6}{6}=6+\\dfrac{12}{6}=6+2=8']],[['e','\\dfrac{66-(6+6)}{6}=\\dfrac{66-12}{6}=\\dfrac{54}{6}=9']],[['e','\\dfrac{66-6}{6}=\\dfrac{60}{6}=10']],[['e','6+6-\\dfrac66=6+6-1=11']],[['e','6\\times\\dfrac{6+6}{6}=6\\times\\dfrac{12}{6}=6\\times2=12']],[['e','7\\div(7\\div7)\\div7=7\\div1\\div7=7\\div7=1']],[['e','\\dfrac{7+7}{7}=\\dfrac{14}{7}=2']],[['e','\\dfrac{7\\times7-7}{7+7}=\\dfrac{49-7}{14}=\\dfrac{42}{14}=3']],[['e','\\dfrac{77-7\\times7}{7}=\\dfrac{77-49}{7}=\\dfrac{28}{7}=4']],[['e','7-\\dfrac{7+7}{7}=7-\\dfrac{7+7}{7}=7-\\dfrac{14}{7}=7-2=5']],[['e','7-\\dfrac{7}{7}=7-1=6']],[['e','7+7\\times0=7+0=7']],[['e','7+\\dfrac{7}{7}=7+1=8']],[['e','\\dfrac{77-(7+7)}{7}=\\dfrac{77-14}{7}=\\dfrac{63}{7}=9']],[['e','\\dfrac{77-7}{7}=\\dfrac{70}{7}=10']],[['e','7+\\dfrac{7+7+7+7}{7}=7+\\dfrac{28}{7}=7+4=11']],[['e','\\dfrac{77+7}{7}=\\dfrac{84}{7}=12']]]
         },
         {
-          stage: 'stage1',
-          id: 'stage1niveau3',
-          subStage: '3',
-          type: 'Priorités de calcul',
+          stage: 'stage3',
+          id: 'stage3niveau1',
+          orientation: 'h',
+          type: 'Priorités de calcul #3',
           questions: [
             [['e','\\dfrac{6+6}{6+6}=']],
             [['e','\\dfrac{6+6}{6}=']],
@@ -230,10 +230,10 @@ export const useStoreStages = defineStore('storeStages', {
             [['e','\\dfrac{99+9}{9}=\\dfrac{108}{9}=12']]]
         },
         {
-          stage: 'stage2',
-          id: 'stage2niveau1',
-          subStage: '1',
-          type: 'Images / antécédents',
+          stage: 'stage4',
+          id: 'stage4niveau1',
+          orientation: 'v',
+          type: 'Images / antécédents #1',
           questions: [
             [['t','Dans un repère, on a représenté une fonction.'],['t',' Les images se lisent :']],
             [['t','Dans un repère, on a représenté une fonction. Les images se lisent :']],
@@ -464,10 +464,10 @@ export const useStoreStages = defineStore('storeStages', {
           ]
         },
         {
-          stage: 'stage2',
-          id: 'stage2niveau2',
-          subStage: '2',
-          type: 'Images / antécédents',
+          stage: 'stage5',
+          id: 'stage5niveau1',
+          orientation: 'v',
+          type: 'Images / antécédents #2',
           questions: [
             [['t','Dans un repère, on a représenté une fonction.'],['t',' Les images se lisent :']],
             [['t','Dans un repère, on a représenté une fonction. Les images se lisent :']],
@@ -698,9 +698,9 @@ export const useStoreStages = defineStore('storeStages', {
           ]
         },
         {
-          stage: 'stage3',
-          id: 'stage3niveau1',
-          subStage: '1',
+          stage: 'stage6',
+          id: 'stage6niveau1',
+          orientation: 'h',
           type: 'Conversions',
           questions:[
             [['e','3,4~m~=~...~cm']],
@@ -921,10 +921,10 @@ export const useStoreStages = defineStore('storeStages', {
           ]
         },
         {
-          stage: 'stage4',
-          id: 'stage4niveau1',
-          subStage: '1',
-          type: 'Quadrilatères',
+          stage: 'stage7',
+          id: 'stage7niveau1',
+          orientation: 'h',
+          type: 'Quadrilatères #1',
           questions:[
             [['t','Une figure plane ayant 4 côtés est un :']],
             [['t','Une figure plane ayant 2 diagonales est un :']],
@@ -1095,10 +1095,10 @@ export const useStoreStages = defineStore('storeStages', {
           ]
         },
         {
-          stage: 'stage4',
-          id: 'stage4niveau2',
-          subStage: '2',
-          type: 'Quadrilatères',
+          stage: 'stage8',
+          id: 'stage8niveau1',
+          orientation: 'h',
+          type: 'Quadrilatères #2',
           questions:[
             [['t','Une figure plane ayant 4 côtés est un :']],
             [['t','Une figure plane ayant 2 diagonales est un :']],
