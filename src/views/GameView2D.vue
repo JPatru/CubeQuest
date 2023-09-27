@@ -172,7 +172,7 @@
       <div v-if="showCorrection">
         <header class="card-header has-background-primary">
           <p class="card-header-title has-text-centered">
-            Correction :
+            Corrigé :
           </p>
         </header>
         <div class="card-content has-background-primary">
@@ -227,7 +227,7 @@
         <footer class="container has-text-centered has-background-primary">
 
           <div @click="hideCorrection()" class="button is-small has-background-warning m-2">
-            C'est compris !
+            J'ai compris !
           </div>
 
         </footer>

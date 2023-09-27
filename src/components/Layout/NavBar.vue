@@ -50,7 +50,7 @@
             to="/LevelSelection"
             active-class="is-active"
           >
-            Selection de niveau
+            Selection de défi
           </RouterLink>
 
           <!-- <RouterLink

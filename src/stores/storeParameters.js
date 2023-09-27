@@ -20,7 +20,8 @@ export const useStoreParameters = defineStore('storeParameters', {
           { id: 'stage5niveau1', completed: false, score: 0 },
           { id: 'stage6niveau1', completed: false, score: 0 },
           { id: 'stage7niveau1', completed: false, score: 0 },
-          { id: 'stage8niveau1', completed: false, score: 0 }
+          { id: 'stage8niveau1', completed: false, score: 0 },
+          { id: 'stage9niveau1', completed: false, score: 0 }
         ]
       }
     }
