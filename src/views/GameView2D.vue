@@ -12,7 +12,7 @@
           score : {{ score }}
         </p>
         <p v-if="combo <5" class="column is-one-third is-size-4"> combo : {{ combo }} </p>
-        <p v-if="combo ===5" class="column is-one-third has-text-success has-text-weight-bold is-size-4"> enchaînement : {{ combo }} </p>
+        <p v-if="combo ===5" class="column is-one-third has-text-success has-text-weight-bold is-size-4"> combo : {{ combo }} </p>
       </div>
 
       <div class="mt-6">
